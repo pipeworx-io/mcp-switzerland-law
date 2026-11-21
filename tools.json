@@ -1,0 +1,75 @@
+[
+  {
+    "name": "ch_law_search",
+    "description": "Search Swiss federal legislation (Fedlex, Federal Chancellery) by title word, abbreviation or SR number, in German, French, Italian or English: e.g. query \"Datenschutz\" lang \"de\", query \"protection des donnees\" lang \"fr\", abbreviation \"DSG\", or sr_number \"235.1\" (the Classified Compilation number). By default only acts in force today are returned (in_force_only=false adds repealed and not-yet-in-force acts). Returns id (the SR number, usable in ch_law_get), title, short title, SR number, AS (Official Compilation) reference, entry-into-force date, status and link; 25 per page, use page to continue. Federal law only, no cantonal law and no EU law.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Word(s) from the title in the chosen language, all must match, e.g. \"Datenschutz\" or \"protection des donnees\""
+        },
+        "abbreviation": {
+          "type": "string",
+          "description": "Official short title, e.g. \"DSG\", \"ZGB\", \"StGB\", \"LPD\""
+        },
+        "sr_number": {
+          "type": "string",
+          "description": "Classified Compilation (SR) number, e.g. \"235.1\" (use instead of query)"
+        },
+        "lang": {
+          "type": "string",
+          "enum": [
+            "de",
+            "fr",
+            "it",
+            "en"
+          ],
+          "description": "Language of the title search and of the titles returned (default de)"
+        },
+        "in_force_only": {
+          "type": "boolean",
+          "description": "Only acts in force today (default true)"
+        },
+        "page": {
+          "type": "number",
+          "description": "Page number, 1-based (default 1)"
+        }
+      }
+    }
+  },
+  {
+    "name": "ch_law_get",
+    "description": "Fetch one Swiss federal act: its record and consolidated text. id is an SR number from ch_law_search (e.g. \"235.1\" for the Federal Act on Data Protection) or an Official Compilation reference like \"2022/491\". Returns title, short title, SR number, AS reference, adoption and entry-into-force dates, in-force status, the date of the consolidated version returned (the version applicable today) and the text. Pass article (e.g. \"6\", \"66a\") for one article only; without it the text is capped at max_chars with a list of chapters. lang picks the language (de, fr, it, en when available). The consolidated text is informative as published; the legal force lies with the Official Compilation.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "SR number (e.g. \"235.1\") or AS reference \"year/number\" (e.g. \"2022/491\")"
+        },
+        "article": {
+          "type": "string",
+          "description": "Article number, e.g. \"6\", \"66a\", \"7bis\""
+        },
+        "lang": {
+          "type": "string",
+          "enum": [
+            "de",
+            "fr",
+            "it",
+            "en"
+          ],
+          "description": "Text language (default de)"
+        },
+        "max_chars": {
+          "type": "number",
+          "description": "Cap on returned text when no article is given (default 20000, max 100000)"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  }
+]

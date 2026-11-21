@@ -1,0 +1,33 @@
+{
+  "name": "@pipeworx/mcp-switzerland-law",
+  "version": "0.1.0",
+  "description": "Switzerland law -- Fedlex, the Swiss Confederation's publication platform for federal law (published by the Federal Chancellery): the Classified Compilation (SR, Systematische Rechtssammlung) and the Official Compilation (AS, Amtliche Sammlung).",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./tools.json": "./tools.json",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "mcp-switzerland-law": "bin/cli.js"
+  },
+  "files": ["bin/", "lib/", "tools.json", "server.json"],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["mcp", "mcp-server", "model-context-protocol", "pipeworx", "switzerland-law"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pipeworx-io/mcp-switzerland-law.git"
+  },
+  "mcpName": "io.github.pipeworx-io/switzerland-law",
+  "pipeworx": {
+    "mode": "gateway",
+    "slug": "switzerland-law",
+    "gatewaySlug": "switzerland-law",
+    "sourceHash": "v1-e346e1bc8f2c46278eb87aee8842fc17ae3210e3c003e6f2152850d64bcfc8b7",
+    "sourceCommit": "64d643fa9b2d925b75d2c708d48340c041f0ab55"
+  }
+}
